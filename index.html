@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Live Countdown – TikTok Vertical</title>
+<meta name="viewport" ontent="width=1920, height=1080, initial-scale=1.0">
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: "Bauhaus 93", Arial, sans-serif;
+    color: white;
+    overflow: hidden;
+    background: url("148077-abstract-glowing-cool-blue-wave-background-design.jpg")
+            no-repeat center center / cover;
+  }
+
+  .container {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    position: relative;
+  }
+
+  /* ===== TOP LOGO ===== */
+  #logoVideo {
+    position: absolute;
+    top: 20px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    z-index: 100;
+  }
+
+  /* ===== HEADER TEXT ===== */
+  #headerText {
+    position: absolute;
+    top: 300px;
+    left: 15%;
+    transform: translateX(-50%);
+    font-size: 80px;
+    font-weight: 900;
+    white-space: nowrap;
+    text-shadow: 4px 4px 12px rgba(0,0,0,0.7);
+  }
+
+  .lightsweep {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+  }
+
+  .lightsweep::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(120deg,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0.6) 50%,
+      rgba(255,255,255,0) 100%);
+    animation: sweep 3s infinite;
+  }
+
+  @keyframes sweep {
+    0% { left: -120%; }
+    60% { left: 130%; }
+    100% { left: 130%; }
+  }
+
+  /* ===== COUNTDOWN ===== */
+ #countdown {
+    position: absolute;
+    top: 430px;
+    left: 38%;
+    transform: translateX(-50%);
+    font-size: 80px;
+    letter-spacing: 6px;
+    color: #00ffdd;
+    padding: 20px 60px;
+    background: rgba(0,0,0,0.35);
+    border-radius: 20px;
+    border: 3px solid rgba(0,255,255,0.5);
+    box-shadow:
+      0 0 12px rgba(0,255,255,0.4),
+      inset 0 0 12px rgba(0,255,255,0.4);
+  }
+
+  /* ===== LABELS ===== */
+  .labels {
+    position: absolute;
+    top: 540px;
+    left: 44%;
+    transform: translateX(-50%);
+    font-size: 28px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  }
+
+  /* ===== BOTTOM RIGHT SECTION ===== */
+  .bottomBox {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+  }
+
+  #rm300 {
+    font-size: 100px;
+    font-weight: 900;
+    color: #ffe066;
+    text-shadow: 6px 6px 16px rgba(0,0,0,0.7);
+  }
+
+  #qrcode {
+    width: 200px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    padding: 10px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  }
+
+  /* ===== FADE-IN EFFECT ===== */
+  .fade-in {
+    animation: fadeIn 1.5s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <!-- TOP LOGO -->
+  <video id="logoVideo" class="fade-in" autoplay loop muted playsinline>
+    <source src="Logo_Ball_PreComp.mp4" type="video/mp4">
+  </video>
+
+  <!-- HEADER TEXT -->
+  <div id="headerText" class="lightsweep fade-in">
+    DISKAUN AKAN TAMAT 31 DISEMBER 2025!
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div id="countdown" class="fade-in">00:00:00:00</div>
+
+  <!-- LABELS -->
+  <div class="labels fade-in">
+    Days &nbsp;&nbsp;&nbsp; Hours &nbsp;&nbsp;&nbsp; Minutes &nbsp;&nbsp;&nbsp; Seconds
+  </div>
+
+  <!-- BOTTOM-RIGHT RM300 + QR -->
+  <div class="bottomBox fade-in">
+    <div id="rm300" class="lightsweep">RM300</div>
+    <img id="qrcode" src="SCAN_UNTUK_TEBUS_DISKAUN_RM300-1024-1.png">
+  </div>
+
+  <!-- TICK AUDIO -->
+  <audio id="tick-audio" src="mixkit-tick-tock-clock-close-up-1059.wav" preload="auto"></audio>
+
+</div>
+
+<script>
+/* ===== COUNTDOWN SCRIPT ===== */
+const TARGET = new Date("2025-12-31T23:59:59");
+const holidays = ["2025-12-25"]; // Add more holiday dates as needed YYYY-MM-DD
+
+function isExcludedDate(d){
+  const dow = d.getDay();
+  if (dow === 0 || dow === 6) return true; // skip weekends
+  const iso = d.toISOString().slice(0,10);
+  return holidays.includes(iso);
+}
+
+function businessDayCountFromNowToTarget(){
+  const now = new Date();
+  let cur = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  let end = new Date(TARGET.getFullYear(), TARGET.getMonth(), TARGET.getDate());
+  let count = 0;
+  for(let dt = new Date(cur); dt <= end; dt.setDate(dt.getDate()+1)){
+    if (!isExcludedDate(dt)) count++;
+  }
+  return count;
+}
+
+function pad(n){ return n<10? "0"+n : ""+n; }
+
+const tick = document.getElementById("tick-audio");
+tick.volume = 0.3;
+let lastSecond = -1;
+
+function playTick(sec) {
+  if(sec !== lastSecond){
+    tick.currentTime = 0;
+    tick.play().catch(()=>{});
+    lastSecond = sec;
+  }
+}
+
+function updateCountdown(){
+  const now = new Date();
+  let diff = TARGET - now;
+  if(diff < 0) diff = 0;
+
+  const businessDays = businessDayCountFromNowToTarget();
+
+  let totalSec = Math.floor(diff / 1000);
+  let s = totalSec % 60;
+  totalSec = (totalSec - s) / 60;
+  let m = totalSec % 60;
+  totalSec = (totalSec - m) / 60;
+  let h = totalSec % 24;
+
+  document.getElementById("countdown").textContent =
+    pad(businessDays) + ":" + pad(h) + ":" + pad(m) + ":" + pad(s);
+
+  playTick(s);
+
+  // Hide RM300 + QR when countdown ends
+  const bottomBox = document.querySelector(".bottomBox");
+  if(diff <= 0){
+    bottomBox.style.display = "none";
+  }
+}
+
+// Update every second
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
