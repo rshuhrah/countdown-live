@@ -1,0 +1,9 @@
+# After Effects cache & temp
+*.tmp
+*.bak
+*.log
+Adobe After Effects Auto-Save/*
+*/Media Cache/*
+*/Media Cache Files/*
+ae/Adobe After Effects Auto-Save/
+

@@ -1,0 +1,79 @@
+Report created: 
+	2/12/2025	11:05:15 AM
+
+Project name: promotion_countdown_days.aep
+
+Source files collected to: 
+	C:\Users\shuhrah\Desktop\satelit.trg\countdown_promotion\promotion_countdown_days folder
+
+Source files collected: All
+
+Collected comps:  
+	Countdown video
+	mixkit-tick-tock-clock-close-up-1059
+	Logo_MyIPO Comp 1
+	Logo_MyIPO_transparent Comp 1
+	ChatGPT Image Nov 27, 2025, 01_06_28 PM.png Comp 1
+	Logo_MyIPO Comp 2
+	MyIPO_Logo Comp 1
+	MyIPO_Logo_Clean
+	MyIPO_Logo_Clean
+	Logo_MyIPO_PreComp
+
+	Logo_Square_Precomp
+	Logo_Square_Fix
+	
+Number of collected files:  12
+
+Size of collected files:  11.1 MB
+
+Collected source files: 
+	C:\Users\shuhrah\Desktop\satelit.trg\countdown_promotion\mixkit-tick-tock-clock-close-up-1059.wav
+	C:\Users\shuhrah\Downloads\1-1.jpg
+	C:\Users\shuhrah\Downloads\ChatGPT Image Nov 25, 2025, 09_46_09 AM.png
+	C:\Users\shuhrah\Downloads\ChatGPT Image Nov 27, 2025, 01_06_28 PM.png
+	C:\Users\shuhrah\Downloads\comic-boom-explosion-2-6.png
+	C:\Users\shuhrah\Downloads\explosion-effect-smoke-icon\8fb6199d-dfba-4749-b889-13e062d7ef52.jpg
+	C:\Users\shuhrah\Downloads\halftone-style-blank-speech-bubbles-retro-comic-background\f8c5e3bf-4991-4228-a973-5b265b10a03e.jpg
+	C:\Users\shuhrah\Downloads\Logo_MyIPO.jpg
+	C:\Users\shuhrah\Downloads\Logo_MyIPO.png
+	C:\Users\shuhrah\Downloads\myipo-logo-png_seeklogo-284486.png
+	C:\Users\shuhrah\Downloads\myipo.png
+	C:\Users\shuhrah\Downloads\MyIPO_Logo_Clean.png
+	
+Number of missing items:  2
+
+Rendering plug-ins:
+	Classic 3D
+	
+Effects used:  12
+
+Effect:  CC Light Sweep
+	
+Effect:  CC Sphere
+	
+Effect:  Curves
+	
+Effect:  Drop Shadow
+	
+Effect:  Exposure
+	
+Effect:  Fast Box Blur
+	
+Effect:  Fill
+	
+Effect:  Gaussian Blur
+	
+Effect:  Glow
+	
+Effect:  Gradient Ramp
+	
+Effect:  Stretch Master Control
+	
+Effect:  Warp
+	
+
+Layer:  Text Layer
+	External dependencies:  
+		Font family: “Anton”, Font style: “Regular”
+
