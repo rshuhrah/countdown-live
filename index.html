@@ -33,6 +33,7 @@
     transform: translateX(-50%);
     width: 250px;
     z-index: 100;
+    background: transparent; /* important */
   }
 
   /* ===== HEADER TEXT ===== */
@@ -143,10 +144,16 @@
 <body>
 <div class="container">
 
-  <!-- TOP LOGO -->
-  <video id="logoVideo" class="fade-in" autoplay loop muted playsinline>
-    <source src="Logo_Ball_PreComp.mp4" type="video/mp4">
-  </video>
+<!-- TOP LOGO -->
+<video id="logoVideo" class="fade-in" autoplay loop muted playsinline>
+    <source src="Logo_Ball_PreComp_3.webm" type="video/webm">
+</video>
+
+<!-- Fallback for browsers that do not support WebM -->
+<div id="logoVideoFallback" class="fade-in">
+    <img src="Logo_Ball_PreComp_3.png" alt="Logo">
+</div>
+
 
   <!-- HEADER TEXT -->
   <div id="headerText" class="lightsweep fade-in">
@@ -238,7 +245,14 @@ function updateCountdown(){
 // Update every second
 setInterval(updateCountdown, 1000);
 updateCountdown();
+
+// Hide fallback if browser supports WebM
+if (document.createElement('video').canPlayType('video/webm')) {
+    document.getElementById('logoVideoFallback').style.display = 'none';
+}
+
 </script>
 
 </body>
 </html>
+
