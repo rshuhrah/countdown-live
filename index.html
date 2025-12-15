@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Live Countdown – TikTok Vertical</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" ontent="width=1920, height=1080, initial-scale=1.0">
 
 <style>
   body {
@@ -14,7 +14,7 @@
     font-family: "Bauhaus 93", Arial, sans-serif;
     color: white;
     overflow: hidden;
-    background: url("148077-abstract-glowing-cool-blue-wave-background-design.jpg") no-repeat center center / cover;
+    background: url('148077-abstract-glowing-cool-blue-wave-background-design.jpg')
   }
 
   .container {
@@ -143,15 +143,8 @@
 <div class="container">
 
   <!-- TOP LOGO -->
-  <video id="logoVideo" class="fade-in" autoplay loop muted playsinline
-    style="width:250px; height:auto; position:absolute; top:20px; left:50%; transform:translateX(-50%); z-index:100;">
-    
-    <!-- Chrome / Firefox / Edge (transparent WebM) -->
-    <source src="./Logo_Ball_PreComp_3.webm" type="video/webm; codecs=vp9">
-  
-    <!-- Safari fallback (MP4, no alpha) -->
-    <source src="./Logo_Ball_PreComp_3.mp4" type="video/mp4">
-  
+  <video id="logoVideo" class="fade-in" autoplay loop muted playsinline>
+    <source src="Logo_Ball_PreComp.mp4" type="video/mp4">
   </video>
 
   <!-- HEADER TEXT -->
@@ -171,7 +164,6 @@
   <div class="bottomBox fade-in">
     <div id="rm300" class="lightsweep">RM300</div>
     <img id="qrcode" src="SCAN_UNTUK_TEBUS_DISKAUN_RM300-1024-1.png">
-
   </div>
 
   <!-- TICK AUDIO -->
@@ -249,9 +241,3 @@ updateCountdown();
 
 </body>
 </html>
-
-
-
-
-
-
