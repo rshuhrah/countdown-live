@@ -144,8 +144,21 @@
 <div class="container">
 
   <!-- TOP LOGO -->
-  <video id="logoVideo" class="fade-in" autoplay loop muted playsinline>
-    <source src="Logo_Ball_PreComp.mp4" type="video/mp4">
+  <video
+    id="logoVideo"
+    class="fade-in"
+    autoplay
+    loop
+    muted
+    playsinline
+    style="width:250px; height:auto; position:absolute; top:20px; left:50%; transform:translateX(-50%); z-index:100;">
+    
+    <!-- Chrome / Firefox / Edge (transparent WebM) -->
+    <source src="./videos/Logo_Ball_PreComp_3.webm" type="video/webm; codecs=vp9">
+  
+    <!-- Safari fallback (MP4, no alpha) -->
+    <source src="./videos/Logo_Ball_PreComp_3.mp4" type="video/mp4">
+  
   </video>
 
   <!-- HEADER TEXT -->
@@ -242,3 +255,4 @@ updateCountdown();
 
 </body>
 </html>
+
