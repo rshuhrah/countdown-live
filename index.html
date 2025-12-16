@@ -28,7 +28,7 @@
   /* ===== TOP LOGO ===== */
   #logoVideo {
     position: absolute;
-    top: 420px; 
+    top: 30px; 
     left: 15%;
     transform: translateX(-50%);
     width: 1000px;
@@ -48,7 +48,29 @@
     text-shadow: 4px 4px 12px rgba(0,0,0,0.7);
   }
 
-
+   /* ===== COUNTDOWN ===== */
+  #countdown {
+    position: absolute;
+    top: 420px; /* adjust this to be below header text */
+    left: 15%;
+    transform: translateX(-50%);
+    font-size: 80px;
+    letter-spacing: 6px;
+    color: #00ffdd;
+    background: rgba(0,0,0,0.35);
+    border-radius: 20px;
+    border: 1px solid rgba(0,255,255,0.5);
+    box-shadow: 0 0 12px rgba(0,255,255,0.4), inset 0 0 12px rgba(0,255,255,0.4);
+  }
+  
+  /* ===== LABELS ===== */
+  .labels {
+    font-size: 28px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    position: absolute;
+    top: 20px; /* adjust this to be below header text */
+    left: 15%;
+  }
   #logoVideoFallback img {
     width: 100%;
     height: auto;
@@ -79,31 +101,6 @@
     60% { left: 130%; }
     100% { left: 130%; }
   }
-
- /* ===== COUNTDOWN ===== */
-#countdown {
-  position: absolute;
-  top: 420px; /* adjust this to be below header text */
-  left: 15%;
-  transform: translateX(-50%);
-  font-size: 80px;
-  letter-spacing: 6px;
-  color: #00ffdd;
-  padding: 20px 60px;
-  background: rgba(0,0,0,0.35);
-  border-radius: 20px;
-  border: 3px solid rgba(0,255,255,0.5);
-  box-shadow: 0 0 12px rgba(0,255,255,0.4), inset 0 0 12px rgba(0,255,255,0.4);
-}
-
-/* ===== LABELS ===== */
-.labels {
-  font-size: 28px;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-  position: absolute;
-  top: 20px; /* adjust this to be below header text */
-  left: 15%;
-}
 
 /* ===== BOTTOM-RIGHT RM300 + QR ===== */
 .bottomBox {
@@ -252,6 +249,7 @@ if (document.createElement('video').canPlayType('video/webm')) {
 
 </body>
 </html>
+
 
 
 
