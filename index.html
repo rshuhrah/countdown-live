@@ -7,8 +7,6 @@
 
 <style>
   body {
-    margin: 0;
-    padding: 0;
     width: 100vw;
     height: 100vh;
     font-family: "Bauhaus 93", Arial, sans-serif;
@@ -21,7 +19,6 @@
   .container {
     width: 1080px;
     height: 1920px;
-    margin: 0 auto;
     position: relative;
   }
 
@@ -34,7 +31,7 @@
     transform: translateX(-50%);
     width: 850px;
     height: auto;
-    z-index: 50;
+    z-index: 150;
     background: transparent; /* important */
 
   }
@@ -46,14 +43,14 @@
   /* ===== HEADER TEXT ===== */
   #headerText {
     position: absolute;
-    top: 130px;
+    top: 230px;
     left: 15%;
     transform: translateX(-50%);
     font-size: 80px;
     font-weight: 900;
     white-space: nowrap;
     text-shadow: 4px 4px 12px rgba(0,0,0,0.7);
-    z-index: 100; /* ⬅️ lebih rendah dari logo */
+    z-index: 50; /* ⬅️ lebih rendah dari logo */
   }
 
   .lightsweep {
@@ -257,6 +254,7 @@ if (document.createElement('video').canPlayType('video/webm')) {
 
 </body>
 </html>
+
 
 
 
