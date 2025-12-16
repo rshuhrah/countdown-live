@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Live Countdown – TikTok Vertical</title>
-<meta name="viewport" content="width=1920, height=1080, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
   body {
@@ -31,12 +31,16 @@
     top: 30px; 
     left: 50%;
     transform: translateX(-50%);
-    width: 520px;
+    width: 620px;
     height: auto; 
     z-index: 100;
     background: transparent; /* important */
   }
 
+  #logoVideoFallback img {
+    width: 100%;
+    height: auto;
+  }
   /* ===== HEADER TEXT ===== */
   #headerText {
     position: absolute;
@@ -150,12 +154,6 @@
     <source src="Logo_Ball_PreComp_3.webm" type="video/webm">
 </video>
 
-<!-- Fallback for browsers that do not support WebM -->
-  <div id="logoVideoFallback" class="fade-in"
-     style="position:absolute; top:20px; left:50%; transform:translateX(-50%); width:250px; z-index:100;">
-    <img src="Logo_Ball_PreComp_3.png" alt="Logo">
-  </div>
-
   <!-- HEADER TEXT -->
   <div id="headerText" class="lightsweep fade-in">
     DISKAUN AKAN TAMAT 31 DISEMBER 2025!
@@ -256,6 +254,7 @@ if (document.createElement('video').canPlayType('video/webm')) {
 
 </body>
 </html>
+
 
 
 
