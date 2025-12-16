@@ -21,33 +21,30 @@
   .container {
     width: 100%;
     height: 100%;
-    text-align: center;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* keeps left: 15% */
+    padding-left: 15%;       /* this replaces left: 15% in absolute */
+    padding-top: 30px;       /* top spacing for logo */
+    box-sizing: border-box;
   }
 
-  /* ===== TOP LOGO ===== */
+  /* ===== LOGO VIDEO ===== */
   #logoVideo {
-    position: absolute;
-    top: 30px; 
-    left: 15%;
-    transform: translateX(-50%);
     width: 1000px;
-    z-index: 100;
-    background: transparent; /* important */
+    max-width: 100%;
+    background: transparent;
   }
 
-  /* ===== HEADER TEXT ===== */
-  #headerText {
-    position: absolute;
-    top: 30px + 500px; 
-    left: 15%;
-    transform: translateX(-50%);
-    font-size: 80px;
-    font-weight: 900;
-    white-space: nowrap;
-    text-shadow: 4px 4px 12px rgba(0,0,0,0.7);
-  }
-
+/* ===== HEADER TEXT ===== */
+#headerText {
+  font-size: 80px;
+  font-weight: 900;
+  white-space: nowrap;
+  text-shadow: 4px 4px 12px rgba(0,0,0,0.7);
+  margin-top: 50px; /* space between logo and text */
+}
 
   #logoVideoFallback img {
     width: 100%;
@@ -80,59 +77,51 @@
     100% { left: 130%; }
   }
 
-  /* ===== COUNTDOWN ===== */
- #countdown {
-    position: absolute;
-    top: 430px;
-    left: 38%;
-    transform: translateX(-50%);
-    font-size: 80px;
-    letter-spacing: 6px;
-    color: #00ffdd;
-    padding: 20px 60px;
-    background: rgba(0,0,0,0.35);
-    border-radius: 20px;
-    border: 3px solid rgba(0,255,255,0.5);
-    box-shadow:
-      0 0 12px rgba(0,255,255,0.4),
-      inset 0 0 12px rgba(0,255,255,0.4);
-  }
+ /* ===== COUNTDOWN ===== */
+#countdown {
+  font-size: 80px;
+  letter-spacing: 6px;
+  color: #00ffdd;
+  padding: 20px 60px;
+  background: rgba(0,0,0,0.35);
+  border-radius: 20px;
+  border: 3px solid rgba(0,255,255,0.5);
+  box-shadow: 0 0 12px rgba(0,255,255,0.4), inset 0 0 12px rgba(0,255,255,0.4);
+  margin-top: 50px; /* space between text and countdown */
+}
 
-  /* ===== LABELS ===== */
-  .labels {
-    position: absolute;
-    top: 540px;
-    left: 44%;
-    transform: translateX(-50%);
-    font-size: 28px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-  }
+/* ===== LABELS ===== */
+.labels {
+  font-size: 28px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  margin-top: 10px;
+}
 
- /* ===== BOTTOM RIGHT SECTION ===== */
-  .bottomBox {
-    position: absolute;
-    bottom: 50px;
-    right: 50px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 40px;
-  }
+/* ===== BOTTOM-RIGHT RM300 + QR ===== */
+.bottomBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+}
 
-  #rm300 {
-    font-size: 100px;
-    font-weight: 900;
-    color: #ffe066;
-    text-shadow: 6px 6px 16px rgba(0,0,0,0.7);
-  }
+#rm300 {
+  font-size: 100px;
+  font-weight: 900;
+  color: #ffe066;
+  text-shadow: 6px 6px 16px rgba(0,0,0,0.7);
+}
 
-  #qrcode {
-    width: 200px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.1);
-    padding: 10px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-  }
+#qrcode {
+  width: 200px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+  padding: 10px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
 
   /* ===== FADE-IN EFFECT ===== */
   .fade-in {
@@ -255,6 +244,7 @@ if (document.createElement('video').canPlayType('video/webm')) {
 
 </body>
 </html>
+
 
 
 
