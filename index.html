@@ -147,7 +147,7 @@
 
 <!-- Transparent WebM Video -->
 <video id="logoVideo" class="fade-in" autoplay loop muted playsinline>
-    <source src="logo_ball_3.webm" type="video/webm">
+    <source src="logo_ball_5.webm" type="video/webm">
 </video>
 
   <!-- HEADER TEXT -->
@@ -171,7 +171,6 @@
 
   <!-- TICK AUDIO -->
   <audio id="tick-audio" src="mixkit-tick-tock-clock-close-up-1059.mp3" preload="auto"></audio>
-  <audio id="silent-unlock" src="mixkit-silent.mp3" preload="auto"></audio>
 
 </div>
 
@@ -238,24 +237,19 @@ function updateCountdown(){
   }
 }
 
-// Update every second
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
-// Hide fallback if browser supports WebM
-if (document.createElement('video').canPlayType('video/webm')) {
-    document.getElementById('logoVideoFallback').style.display = 'none';
+// Start countdown on first user interaction
+function startCountdown(){
+    updateCountdown();
+    playTick(0);
+    setInterval(updateCountdown, 1000);
+    window.removeEventListener("click", startCountdown);
+    window.removeEventListener("touchstart", startCountdown);
 }
 
-// Unlock audio with silent sound
-const silent = document.getElementById("silent-unlock");
-silent.play().then(() => {
-    playTick(0);              // immediately play first tick
-    updateCountdown();        // show initial countdown
-    setInterval(updateCountdown, 1000); // keep countdown running
-}).catch(()=>{});
- 
+window.addEventListener("click", startCountdown);
+window.addEventListener("touchstart", startCountdown);
 </script>
 
 </body>
 </html>
+
