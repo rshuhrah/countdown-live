@@ -189,16 +189,7 @@
 /* ===== COUNTDOWN SCRIPT ===== */
 const TARGET = new Date("2025-12-31T23:59:59");
 const holidays = ["2025-12-25"]; // Add more holiday dates as needed YYYY-MM-DD
-const tickAudio = document.getElementById("tick-audio");
-tickAudio.muted = false;
-tickAudio.volume = 0.3;
 
-window.addEventListener("load", () => {
-  tickAudio.play().catch(() => {});
-});
-
-
- 
 function isExcludedDate(d){
   const dow = d.getDay();
   if (dow === 0 || dow === 6) return true; // skip weekends
@@ -220,16 +211,22 @@ function businessDayCountFromNowToTarget(){
 function pad(n){ return n<10? "0"+n : ""+n; }
 
 const tick = document.getElementById("tick-audio");
-tick.volume = 0.3;
+tickAudio.volume = 0.3;
+tickAudio.muted = false;
+
 let lastSecond = -1;
 
-function playTick(sec) {
+function playTick() {
+  const sec = new Date().getSeconds();
   if(sec !== lastSecond){
-    tick.currentTime = 0;
-    tick.play().catch(()=>{});
+    tickAudio.currentTime = 0;
+    tickAudio.play().catch(()=>{}); // catch untuk browser block autoplay
     lastSecond = sec;
   }
 }
+
+// Main setiap saat
+setInterval(playTick, 1000);
 
 function updateCountdown(){
   const now = new Date();
@@ -270,6 +267,7 @@ if (document.createElement('video').canPlayType('video/webm')) {
 
 </body>
 </html>
+
 
 
 
