@@ -62,7 +62,18 @@
     border: 2px solid rgba(0,255,255,0.5);
     box-shadow: 0 0 12px rgba(0,255,255,0.4), inset 0 0 12px rgba(0,255,255,0.4);
   }
-  
+  #enableSound {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px 40px;
+  font-size: 28px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 9999;
+}
   /* ===== LABELS ===== */
   .labels {
   position: absolute;
@@ -168,7 +179,12 @@
     <div id="rm300" class="lightsweep">RM300</div>
     <img id="qrcode" src="scan_300.png">
   </div>
+ 
+ <div id="enableSound">
+  TAP TO ENABLE SOUND
+ </div>
 
+ 
   <!-- TICK AUDIO -->
   <audio id="tick-audio" src="mixkit-tick-tock-clock-close-up-1059.mp3" preload="auto"></audio>
 
@@ -178,7 +194,15 @@
 /* ===== COUNTDOWN SCRIPT ===== */
 const TARGET = new Date("2025-12-31T23:59:59");
 const holidays = ["2025-12-25"]; // Add more holiday dates as needed YYYY-MM-DD
+const enableSound = document.getElementById("enableSound");
+const tickAudio = document.getElementById("tick-audio");
 
+enableSound.addEventListener("click", () => {
+  tickAudio.muted = false;
+  tickAudio.play().then(() => {
+    enableSound.style.display = "none";
+  }).catch(() => {});
+});
 function isExcludedDate(d){
   const dow = d.getDay();
   if (dow === 0 || dow === 6) return true; // skip weekends
@@ -250,4 +274,5 @@ if (document.createElement('video').canPlayType('video/webm')) {
 
 </body>
 </html>
+
 
