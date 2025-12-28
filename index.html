@@ -171,6 +171,7 @@
 
   <!-- TICK AUDIO -->
   <audio id="tick-audio" src="mixkit-tick-tock-clock-close-up-1059.mp3" preload="auto"></audio>
+  <audio id="silent-unlock" src="mixkit-silent.mp3" preload="auto"></audio>
 
 </div>
 
@@ -246,10 +247,19 @@ if (document.createElement('video').canPlayType('video/webm')) {
     document.getElementById('logoVideoFallback').style.display = 'none';
 }
 
+// Unlock audio with silent sound
+const silent = document.getElementById("silent-unlock");
+silent.play().then(()=> {
+    // Start countdown after audio unlocked
+    updateCountdown();
+    setInterval(updateCountdown,1000);
+}).catch(()=>{});
+ 
 </script>
 
 </body>
 </html>
+
 
 
 
