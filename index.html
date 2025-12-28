@@ -249,16 +249,17 @@ if (document.createElement('video').canPlayType('video/webm')) {
 
 // Unlock audio with silent sound
 const silent = document.getElementById("silent-unlock");
-silent.play().then(()=> {
-    // Start countdown after audio unlocked
-    updateCountdown();
-    setInterval(updateCountdown,1000);
+silent.play().then(() => {
+    playTick(0);              // immediately play first tick
+    updateCountdown();        // show initial countdown
+    setInterval(updateCountdown, 1000); // keep countdown running
 }).catch(()=>{});
  
 </script>
 
 </body>
 </html>
+
 
 
 
