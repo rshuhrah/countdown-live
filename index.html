@@ -28,7 +28,7 @@
   /* ===== TOP LOGO ===== */
   #logoVideo {
     position: absolute;
-    top: -280px; 
+    top: -380px; 
     left: 2%;
     transform: translateX(-50%);
     width: 1200px;
@@ -62,18 +62,7 @@
     border: 2px solid rgba(0,255,255,0.5);
     box-shadow: 0 0 12px rgba(0,255,255,0.4), inset 0 0 12px rgba(0,255,255,0.4);
   }
-  #enableSound {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px 40px;
-  font-size: 28px;
-  background: rgba(0,0,0,0.7);
-  border-radius: 20px;
-  cursor: pointer;
-  z-index: 9999;
-}
+  
   /* ===== LABELS ===== */
   .labels {
   position: absolute;
@@ -158,7 +147,7 @@
 
 <!-- Transparent WebM Video -->
 <video id="logoVideo" class="fade-in" autoplay loop muted playsinline>
-    <source src="logo_ball_5.webm" type="video/webm">
+    <source src="logo_ball_3.webm" type="video/webm">
 </video>
 
   <!-- HEADER TEXT -->
@@ -179,9 +168,10 @@
     <div id="rm300" class="lightsweep">RM300</div>
     <img id="qrcode" src="scan_300.png">
   </div>
- 
+
   <!-- TICK AUDIO -->
   <audio id="tick-audio" src="mixkit-tick-tock-clock-close-up-1059.mp3" preload="auto"></audio>
+  <audio id="silent-unlock" src="mixkit-silent.mp3" preload="auto"></audio>
 
 </div>
 
@@ -211,22 +201,16 @@ function businessDayCountFromNowToTarget(){
 function pad(n){ return n<10? "0"+n : ""+n; }
 
 const tick = document.getElementById("tick-audio");
-tickAudio.volume = 0.3;
-tickAudio.muted = false;
-
+tick.volume = 0.3;
 let lastSecond = -1;
 
-function playTick() {
-  const sec = new Date().getSeconds();
+function playTick(sec) {
   if(sec !== lastSecond){
-    tickAudio.currentTime = 0;
-    tickAudio.play().catch(()=>{}); // catch untuk browser block autoplay
+    tick.currentTime = 0;
+    tick.play().catch(()=>{});
     lastSecond = sec;
   }
 }
-
-// Main setiap saat
-setInterval(playTick, 1000);
 
 function updateCountdown(){
   const now = new Date();
@@ -263,11 +247,15 @@ if (document.createElement('video').canPlayType('video/webm')) {
     document.getElementById('logoVideoFallback').style.display = 'none';
 }
 
+// Unlock audio with silent sound
+const silent = document.getElementById("silent-unlock");
+silent.play().then(() => {
+    playTick(0);              // immediately play first tick
+    updateCountdown();        // show initial countdown
+    setInterval(updateCountdown, 1000); // keep countdown running
+}).catch(()=>{});
+ 
 </script>
 
 </body>
 </html>
-
-
-
-
