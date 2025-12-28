@@ -198,26 +198,6 @@ function businessDayCountFromNowToTarget(){
   return count;
 }
 
-function pad(n){ return n<10? "0"+n : ""+n; }
-
-const tick = document.getElementById("tick-audio");
-tickAudio.volume = 0.3;
-tickAudio.muted = false;
-
-let lastSecond = -1;
-
-function playTick() {
-  const sec = new Date().getSeconds();
-  if(sec !== lastSecond){
-    tickAudio.currentTime = 0;
-    tickAudio.play().catch(()=>{}); // catch untuk browser block autoplay
-    lastSecond = sec;
-  }
-}
-
-// Main setiap saat
-setInterval(playTick, 1000);
-
 function updateCountdown(){
   const now = new Date();
   let diff = TARGET - now;
@@ -257,5 +237,6 @@ if (document.createElement('video').canPlayType('video/webm')) {
 
 </body>
 </html>
+
 
 
