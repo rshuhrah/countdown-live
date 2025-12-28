@@ -28,10 +28,10 @@
   /* ===== TOP LOGO ===== */
   #logoVideo {
     position: absolute;
-    top: -280px; 
-    left: 26%;
+    top: 40px; 
+    left: 50%;
     transform: translateX(-50%);
-    width: 1000px;
+    width: 600px;
     z-index: 100;
     background: transparent; /* important */
   }
@@ -40,7 +40,7 @@
   #headerText {
     position: absolute;
     top: 320px;
-    left: 15%;
+    left: 50%;
     transform: translateX(-50%);
     font-size: 80px;
     font-weight: 900;
@@ -52,7 +52,7 @@
   #countdown {
     position: absolute;
     top: 420px; /* adjust this to be below header text */
-    left: 38%;
+    left: 50%;
     transform: translateX(-50%);
     font-size: 80px;
     letter-spacing: 6px;
@@ -65,12 +65,13 @@
   
   /* ===== LABELS ===== */
   .labels {
-    font-size: 28px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-    position: absolute;
-    top: 505px; /* adjust this to be below header text */
-    left: 42%;
-  }
+  position: absolute;
+  top: 505px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 28px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
   #logoVideoFallback img {
     width: 100%;
     height: auto;
@@ -249,6 +250,7 @@ if (document.createElement('video').canPlayType('video/webm')) {
 
 </body>
 </html>
+
 
 
 
