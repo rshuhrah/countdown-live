@@ -237,19 +237,16 @@ function updateCountdown(){
   }
 }
 
-// Start countdown on first user interaction
-function startCountdown(){
-    updateCountdown();
-    playTick(0);
-    setInterval(updateCountdown, 1000);
-    window.removeEventListener("click", startCountdown);
-    window.removeEventListener("touchstart", startCountdown);
+// Update every second
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// Hide fallback if browser supports WebM
+if (document.createElement('video').canPlayType('video/webm')) {
+    document.getElementById('logoVideoFallback').style.display = 'none';
 }
 
-window.addEventListener("click", startCountdown);
-window.addEventListener("touchstart", startCountdown);
 </script>
 
 </body>
 </html>
-
