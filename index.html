@@ -180,11 +180,6 @@
     <img id="qrcode" src="scan_300.png">
   </div>
  
- <div id="enableSound">
-  TAP TO ENABLE SOUND
- </div>
-
- 
   <!-- TICK AUDIO -->
   <audio id="tick-audio" src="mixkit-tick-tock-clock-close-up-1059.mp3" preload="auto"></audio>
 
@@ -194,24 +189,14 @@
 /* ===== COUNTDOWN SCRIPT ===== */
 const TARGET = new Date("2025-12-31T23:59:59");
 const holidays = ["2025-12-25"]; // Add more holiday dates as needed YYYY-MM-DD
-const enableSound = document.getElementById("enableSound");
 const tickAudio = document.getElementById("tick-audio");
+tickAudio.muted = false;
+tickAudio.volume = 0.3;
 
-enableSound.addEventListener("click", () => {
-  tickAudio.muted = false;
-  tickAudio.play().then(() => {
-    enableSound.style.display = "none";
-  }).catch(() => {});
+window.addEventListener("load", () => {
+  tickAudio.play().catch(() => {});
 });
 
- window.addEventListener("load", () => {
-  tickAudio.muted = false;
-  tickAudio.play().then(() => {
-    enableSound.style.display = "none";
-  }).catch(() => {
-    enableSound.style.display = "block";
-  });
-});
 
  
 function isExcludedDate(d){
