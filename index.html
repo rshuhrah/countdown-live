@@ -28,7 +28,7 @@
   /* ===== TOP LOGO ===== */
   #logoVideo {
     position: absolute;
-    top: -280px; 
+    top: -250px; 
     left: 2%;
     transform: translateX(-50%);
     width: 1200px;
@@ -39,7 +39,7 @@
   /* ===== HEADER TEXT ===== */
   #headerText {
     position: absolute;
-    top: 320px;
+    top: 300px;
     left: 4%;
     transform: translateX(-50%);
     font-size: 58px;
@@ -51,7 +51,7 @@
    /* ===== COUNTDOWN ===== */
   #countdown {
     position: absolute;
-    top: 420px; /* adjust this to be below header text */
+    top: 400px; /* adjust this to be below header text */
     left: 30%;
     transform: translateX(-50%);
     font-size: 80px;
@@ -66,7 +66,7 @@
   /* ===== LABELS ===== */
   .labels {
   position: absolute;
-  top: 505px;
+  top: 500px;
   left: 35%;
   transform: translateX(-50%);
   font-size: 28px;
@@ -201,16 +201,22 @@ function businessDayCountFromNowToTarget(){
 function pad(n){ return n<10? "0"+n : ""+n; }
 
 const tick = document.getElementById("tick-audio");
-tick.volume = 0.3;
+tickAudio.volume = 0.3;
+tickAudio.muted = false;
+
 let lastSecond = -1;
 
-function playTick(sec) {
+function playTick() {
+  const sec = new Date().getSeconds();
   if(sec !== lastSecond){
-    tick.currentTime = 0;
-    tick.play().catch(()=>{});
+    tickAudio.currentTime = 0;
+    tickAudio.play().catch(()=>{}); // catch untuk browser block autoplay
     lastSecond = sec;
   }
 }
+
+// Main setiap saat
+setInterval(playTick, 1000);
 
 function updateCountdown(){
   const now = new Date();
@@ -247,16 +253,9 @@ if (document.createElement('video').canPlayType('video/webm')) {
     document.getElementById('logoVideoFallback').style.display = 'none';
 }
 
-// Unlock audio with silent sound
-const silent = document.getElementById("silent-unlock");
-silent.play().then(() => {
-    playTick(0);              // immediately play first tick
-    updateCountdown();        // show initial countdown
-    setInterval(updateCountdown, 1000); // keep countdown running
-}).catch(()=>{});
- 
 </script>
 
 </body>
 </html>
+
 
