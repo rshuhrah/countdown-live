@@ -133,10 +133,25 @@ let lastSec=-1;
 let soundEnabled=false;
 
 function playTick(sec){
-  if(soundEnabled && sec!==lastSec){
-    tick.currentTime=0;
+  if(!soundEnabled) return;
+  if(sec === 0 && lastSec !== 0){
+    tick.currentTime = 0;
     tick.play().catch(()=>{});
-    lastSec=sec;
+  }
+  lastSec = sec;
+}
+
+/* 🔴 TAMBAH FUNCTION INI */
+function controlRM300(){
+  const now = new Date();
+  const hour = now.getHours(); // 0–23
+  const box = document.querySelector(".bottomBox");
+
+  // Papar hanya 09:00 – 21:59
+  if(hour >= 9 && hour < 22){
+    box.style.display = "flex";
+  }else{
+    box.style.display = "none";
   }
 }
 
@@ -151,21 +166,24 @@ function updateCountdown(){
   const m=t%60; t=(t-m)/60;
   const h=t%24;
 
-  document.getElementById("countdown").textContent=
+  document.getElementById("countdown").textContent =
     pad(days)+":"+pad(h)+":"+pad(m)+":"+pad(s);
 
   playTick(s);
+
+  // 🔴 kawal RM300 ikut jam
+  controlRM300();
 
   if(diff<=0){
     document.querySelector(".bottomBox").style.display="none";
   }
 }
 
-/* ===== RUN COUNTDOWN IMMEDIATELY ===== */
+/* ===== RUN COUNTDOWN ===== */
 updateCountdown();
 setInterval(updateCountdown,1000);
 
-/* ===== AUDIO UNLOCK (ON CLICK) ===== */
+/* ===== AUDIO UNLOCK ===== */
 function unlockAudio(){
   document.getElementById("silent-unlock").play().then(()=>{
     soundEnabled=true;
@@ -178,5 +196,7 @@ window.addEventListener("click",unlockAudio);
 window.addEventListener("touchstart",unlockAudio);
 </script>
 
+
 </body>
 </html>
+
