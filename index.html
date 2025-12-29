@@ -66,7 +66,7 @@
   /* ===== LABELS ===== */
   .labels {
   position: absolute;
-  top: 620px;
+  top: 630px;
   left: 35%;
   transform: translateX(-50%);
   font-size: 28px;
@@ -238,27 +238,30 @@ function updateCountdown(){
   }
 }
 
-// Update every second
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
 // Hide fallback if browser supports WebM
 if (document.createElement('video').canPlayType('video/webm')) {
     document.getElementById('logoVideoFallback').style.display = 'none';
 }
 
-// Unlock audio with silent sound
-const silent = document.getElementById("silent-unlock");
-silent.play().then(() => {
-    playTick(0);              // immediately play first tick
-    updateCountdown();        // show initial countdown
-    setInterval(updateCountdown, 1000); // keep countdown running
-}).catch(()=>{});
- 
+function startCountdown(){
+    playTick(0);                // main tick pertama
+    updateCountdown();          // update countdown terus
+    setInterval(updateCountdown, 1000); // update setiap saat
+
+    // Remove listener supaya tak trigger berulang
+    window.removeEventListener("click", startCountdown);
+    window.removeEventListener("touchstart", startCountdown);
+}
+
+// Trigger bila user klik / tap mana-mana bahagian halaman
+window.addEventListener("click", startCountdown);
+window.addEventListener("touchstart", startCountdown);
+
 </script>
 
 </body>
 </html>
+
 
 
 
