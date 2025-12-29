@@ -212,7 +212,7 @@ function playTick(sec) {
   }
 }
 
-function updateCountdown(){
+function updateCountdown(playSound){
   const now = new Date();
   let diff = TARGET - now;
   if(diff < 0) diff = 0;
@@ -229,7 +229,7 @@ function updateCountdown(){
   document.getElementById("countdown").textContent =
     pad(businessDays) + ":" + pad(h) + ":" + pad(m) + ":" + pad(s);
 
-  playTick(s);
+  if(playSound) playTick(s);
 
   // Hide RM300 + QR when countdown ends
   const bottomBox = document.querySelector(".bottomBox");
@@ -261,6 +261,7 @@ window.addEventListener("touchstart", startCountdown);
 
 </body>
 </html>
+
 
 
 
