@@ -2,21 +2,83 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Countdown Live</title>
+<title>Live Countdown – TikTok Vertical</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-body{margin:0;width:100vw;height:100vh;font-family:Arial,sans-serif;color:white;background:#111;overflow:hidden;}
-#logoVideo{position:absolute;top:-150px;left:50%;transform:translateX(-50%);width:1200px;}
-#headerText{position:absolute;top:450px;left:50%;transform:translateX(-50%);font-size:58px;font-weight:900;text-shadow:4px 4px 12px rgba(0,0,0,.7);}
-#countdown{position:absolute;top:550px;left:50%;transform:translateX(-50%);font-size:80px;letter-spacing:6px;color:#00ffdd;background:rgba(0,0,0,.35);border-radius:20px;padding:12px 30px;border:2px solid rgba(0,255,255,.5);}
-.labels{position:absolute;top:640px;left:50%;transform:translateX(-50%);font-size:28px;}
-.bottomBox{position:absolute;bottom:50px;right:50px;display:flex;gap:40px;align-items:center;}
-#rm300{font-size:100px;font-weight:900;color:#ffe066;}
-#qrcode{width:200px;border-radius:20px;}
-.flash{animation:flash 0.15s; }
-@keyframes flash { 0%{opacity:1;} 50%{opacity:0.2;} 100%{opacity:1;} }
+body{
+  margin:0;
+  width:100vw;
+  height:100vh;
+  font-family:"Bauhaus 93",Arial,sans-serif;
+  color:white;
+  background:url("148077-abstract-glowing-cool-blue-wave-background-design.jpg")
+    no-repeat center center / cover;
+  overflow:hidden;
+}
+
+#logoVideo{
+  position:absolute;
+  top:-150px;
+  left:50%;
+  transform:translateX(-50%);
+  width:1200px;
+}
+
+#headerText{
+  position:absolute;
+  top:450px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:58px;
+  font-weight:900;
+  text-shadow:4px 4px 12px rgba(0,0,0,.7);
+}
+
+#countdown{
+  position:absolute;
+  top:550px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:80px;
+  letter-spacing:6px;
+  color:#00ffdd;
+  background:rgba(0,0,0,.35);
+  border-radius:20px;
+  padding:12px 30px;
+  border:2px solid rgba(0,255,255,.5);
+}
+
+.labels{
+  position:absolute;
+  top:640px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:28px;
+}
+
+.bottomBox{
+  position:absolute;
+  bottom:50px;
+  right:50px;
+  display:flex;
+  gap:40px;
+  align-items:center;
+}
+
+#rm300{
+  font-size:100px;
+  font-weight:900;
+  color:#ffe066;
+}
+
+#qrcode{
+  width:200px;
+  border-radius:20px;
+}
 </style>
 </head>
+
 <body>
 
 <video id="logoVideo" autoplay loop muted playsinline>
@@ -25,48 +87,94 @@ body{margin:0;width:100vw;height:100vh;font-family:Arial,sans-serif;color:white;
 
 <div id="headerText">DISKAUN BERAKHIR 31 DISEMBER 2025!</div>
 <div id="countdown">--:--:--:--</div>
-<div class="labels">Days &nbsp;&nbsp; Hours &nbsp;&nbsp; Minutes &nbsp;&nbsp; Seconds</div>
+<div class="labels">
+  Days &nbsp;&nbsp; Hours &nbsp;&nbsp; Minutes &nbsp;&nbsp; Seconds
+</div>
 <div class="bottomBox">
   <div id="rm300">RM300</div>
   <img id="qrcode" src="scan_300.png">
 </div>
 
+<audio id="tick-audio" src="mixkit-tick-tock-clock-close-up-1059.mp3" preload="auto"></audio>
+
 <script>
-const TARGET = new Date(2025,11,31,23,59,59);
+/* ===== TARGET & HOLIDAYS ===== */
+const TARGET = new Date(2025,11,31,23,59,59); // Dec 31, 2025
 const holidays = ["2025-12-25"];
 
-function pad(n){return n<10?"0"+n:n;}
-function isExcluded(d){const day=d.getDay();return day===0||day===6||holidays.includes(d.toISOString().slice(0,10));}
-function businessDaysLeft(){let now=new Date();let cur=new Date(now.getFullYear(),now.getMonth(),now.getDate());let end=new Date(TARGET.getFullYear(),TARGET.getMonth(),TARGET.getDate());let count=0;for(let d=new Date(cur);d<=end;d.setDate(d.getDate()+1)){if(!isExcluded(d))count++;}return count;}
-
-// 🔴 OBS-READY: Tick handled by OBS Media Source, visual flash only
-let lastMin=-1;
-
-function controlRM300(){
-  const hour = new Date().getHours();
-  const box = document.querySelector(".bottomBox");
-  box.style.display = (hour>=9 && hour<22) ? "flex" : "none";
+/* ===== BUSINESS DAYS LEFT ===== */
+function isExcluded(d){
+  const day=d.getDay();
+  if(day===0||day===6) return true;
+  return holidays.includes(d.toISOString().slice(0,10));
 }
 
-function updateCountdown(){
+function businessDaysLeft(){
   const now=new Date();
-  let diff=TARGET-now; if(diff<0) diff=0;
-  const days=businessDaysLeft();
-  let t=Math.floor(diff/1000); const s=t%60; t=(t-s)/60; const m=t%60; t=(t-m)/60; const h=t%24;
-  document.getElementById("countdown").textContent=pad(days)+":"+pad(h)+":"+pad(m)+":"+pad(s);
-
-  // 🔴 Flash effect setiap minit baru
-  if(m !== lastMin){
-    lastMin=m;
-    const countdown = document.getElementById("countdown");
-    countdown.classList.add("flash");
-    setTimeout(()=>countdown.classList.remove("flash"),150);
+  let cur=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  let end=new Date(TARGET.getFullYear(),TARGET.getMonth(),TARGET.getDate());
+  let count=0;
+  for(let d=new Date(cur);d<=end;d.setDate(d.getDate()+1)){
+    if(!isExcluded(d)) count++;
   }
-
-  controlRM300();
-  if(diff<=0) document.querySelector(".bottomBox").style.display="none";
+  return count;
 }
 
+/* ===== PAD FUNCTION ===== */
+function pad(n){return n<10?"0"+n:n;}
+
+/* ===== TICK AUDIO ===== */
+const tick = document.getElementById("tick-audio");
+tick.volume=0.3;
+let lastSec=-1;
+let soundEnabled=true; // AUTO ENABLE untuk OBS
+
+function playTick(sec){
+  if(!soundEnabled) return;
+  // Tick ikut minit baru
+  if(sec===0 && lastSec!==0){
+    tick.currentTime=0;
+    tick.play().catch(()=>{});
+  }
+  lastSec=sec;
+}
+
+/* ===== CONTROL RM300 ===== */
+function controlRM300(){
+  const hour = new Date().getHours(); // 0–23
+  const box = document.querySelector(".bottomBox");
+  if(hour >=9 && hour <22){
+    box.style.display="flex";
+  }else{
+    box.style.display="none";
+  }
+}
+
+/* ===== UPDATE COUNTDOWN ===== */
+function updateCountdown(){
+  const now = new Date();
+  let diff = TARGET - now;
+  if(diff<0) diff=0;
+
+  const days = businessDaysLeft();
+  let t=Math.floor(diff/1000);
+  const s = t%60; t=(t-s)/60;
+  const m = t%60; t=(t-m)/60;
+  const h = t%24;
+
+  document.getElementById("countdown").textContent =
+    pad(days)+":"+pad(h)+":"+pad(m)+":"+pad(s);
+
+  playTick(s);
+  controlRM300();
+
+  // hide RM300 if countdown over
+  if(diff<=0){
+    document.querySelector(".bottomBox").style.display="none";
+  }
+}
+
+/* ===== START ===== */
 updateCountdown();
 setInterval(updateCountdown,1000);
 </script>
