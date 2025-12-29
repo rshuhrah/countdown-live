@@ -176,91 +176,65 @@
 </div>
 
 <script>
-/* ===== COUNTDOWN SCRIPT ===== */
+/* ===== TARGET DATE (LOCAL TIME) ===== */
 const TARGET = new Date(2025, 11, 31, 23, 59, 59);
-const holidays = ["2025-12-25"]; // Add more holiday dates as needed YYYY-MM-DD
 
-function isExcludedDate(d){
-  const dow = d.getDay();
-  if (dow === 0 || dow === 6) return true; // skip weekends
-  const iso = d.toISOString().slice(0,10);
-  return holidays.includes(iso);
-}
+/* ===== HELPERS ===== */
+function pad(n){ return n < 10 ? "0"+n : ""+n; }
 
-function businessDayCountFromNowToTarget(){
-  const now = new Date();
-  let cur = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  let end = new Date(TARGET.getFullYear(), TARGET.getMonth(), TARGET.getDate());
-  let count = 0;
-  for(let dt = new Date(cur); dt <= end; dt.setDate(dt.getDate()+1)){
-    if (!isExcludedDate(dt)) count++;
-  }
-  return count;
-}
-
-function pad(n){ return n<10? "0"+n : ""+n; }
-
+/* ===== AUDIO ===== */
 const tick = document.getElementById("tick-audio");
 tick.volume = 0.3;
 let lastSecond = -1;
+let soundEnabled = false;
 
-function playTick(sec) {
-  if(sec !== lastSecond){
+function playTick(sec){
+  if(soundEnabled && sec !== lastSecond){
     tick.currentTime = 0;
     tick.play().catch(()=>{});
     lastSecond = sec;
   }
 }
 
-function updateCountdown(playSound){
+/* ===== COUNTDOWN ===== */
+function updateCountdown(){
   const now = new Date();
   let diff = TARGET - now;
   if(diff < 0) diff = 0;
 
-  const businessDays = businessDayCountFromNowToTarget();
-
-  let totalSec = Math.floor(diff / 1000);
-  let s = totalSec % 60;
-  totalSec = (totalSec - s) / 60;
-  let m = totalSec % 60;
-  totalSec = (totalSec - m) / 60;
-  let h = totalSec % 24;
+  let total = Math.floor(diff / 1000);
+  let s = total % 60;
+  total = (total - s) / 60;
+  let m = total % 60;
+  total = (total - m) / 60;
+  let h = total % 24;
+  let d = Math.floor(total / 24);
 
   document.getElementById("countdown").textContent =
-    pad(businessDays) + ":" + pad(h) + ":" + pad(m) + ":" + pad(s);
+    pad(d)+":"+pad(h)+":"+pad(m)+":"+pad(s);
 
-  if(playSound) playTick(s);
-
-  // Hide RM300 + QR when countdown ends
-  const bottomBox = document.querySelector(".bottomBox");
-  if(diff <= 0){
-    bottomBox.style.display = "none";
-  }
+  playTick(s);
 }
 
-// Hide fallback if browser supports WebM
-if (document.createElement('video').canPlayType('video/webm')) {
-    document.getElementById('logoVideoFallback').style.display = 'none';
+/* ===== START VISUAL COUNTDOWN IMMEDIATELY ===== */
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+/* ===== ENABLE SOUND AFTER USER CLICK ===== */
+function enableSound(){
+  soundEnabled = true;
+  playTick(0);
+  window.removeEventListener("click", enableSound);
+  window.removeEventListener("touchstart", enableSound);
 }
 
-function startCountdown(){
-    playTick(0);                // main tick pertama
-    updateCountdown();          // update countdown terus
-    setInterval(updateCountdown, 1000); // update setiap saat
-
-    // Remove listener supaya tak trigger berulang
-    window.removeEventListener("click", startCountdown);
-    window.removeEventListener("touchstart", startCountdown);
-}
-
-// Trigger bila user klik / tap mana-mana bahagian halaman
-window.addEventListener("click", startCountdown);
-window.addEventListener("touchstart", startCountdown);
-
+window.addEventListener("click", enableSound);
+window.addEventListener("touchstart", enableSound);
 </script>
 
 </body>
 </html>
+
 
 
 
