@@ -2,125 +2,116 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Live Countdown – TikTok Vertical</title>
+<title>Live Countdown</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
- body {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    font-family: "Bauhaus 93", Arial, sans-serif;
-    color: white;
-    overflow: hidden;
-    background: url("148077-abstract-glowing-cool-blue-wave-background-design.jpg")
-            no-repeat center center / cover;
-  }
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  font-family: "Bauhaus 93", Arial, sans-serif;
+  color: white;
+  overflow: hidden;
+  background: url("148077-abstract-glowing-cool-blue-wave-background-design.jpg")
+          no-repeat center center / cover;
+}
 
-  .container {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    position: relative;
-  }
- 
-  /* ===== TOP LOGO ===== */
-  #logoVideo {
-    position: absolute;
-    top: -150px; 
-    left: 17%;
-    transform: translateX(-50%);
-    width: 1200px;
-    z-index: 100;
-    background: transparent; /* important */
-  }
- 
-  /* ===== HEADER TEXT ===== */
-  #headerText {
-    position: absolute;
-    top: 450px;
-    left: 20%;
-    transform: translateX(-50%);
-    font-size: 65px;
-    font-weight: 900;
-    white-space: nowrap;
-    text-shadow: 4px 4px 12px rgba(0,0,0,0.7);
-  }
+.container {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  position: relative;
+}
 
-   /* ===== COUNTDOWN ===== */
-  #countdown {
-    position: absolute;
-    top: 550px; /* adjust this to be below header text */
-    left: 30%;
-    transform: translateX(-50%);
-    font-size: 80px;
-    letter-spacing: 6px;
-    color: #00ffdd;
-    background: rgba(0,0,0,0.35);
-    border-radius: 20px;
-    border: 2px solid rgba(0,255,255,0.5);
-    box-shadow: 0 0 12px rgba(0,255,255,0.4), inset 0 0 12px rgba(0,255,255,0.4);
-  }
-  
-  /* ===== LABELS ===== */
-  .labels {
+/* ===== LOGO ===== */
+#logoVideo {
+  position: absolute;
+  top: -150px;
+  left: 17%;
+  transform: translateX(-50%);
+  width: 1200px;
+  z-index: 100;
+  background: transparent;
+}
+
+/* ===== HEADER ===== */
+#headerText {
+  position: absolute;
+  top: 450px;
+  left: 22%;
+  transform: translateX(-50%);
+  font-size: 65px;
+  font-weight: 900;
+  white-space: nowrap;
+  text-shadow: 4px 4px 12px rgba(0,0,0,0.7);
+}
+
+/* ===== COUNTDOWN ===== */
+#countdown {
+  position: absolute;
+  top: 550px;
+  left: 35%;
+  transform: translateX(-50%);
+  font-size: 80px;
+  letter-spacing: 6px;
+  color: #00ffdd;
+  background: rgba(0,0,0,0.35);
+  border-radius: 20px;
+  border: 2px solid rgba(0,255,255,0.5);
+  box-shadow: 0 0 12px rgba(0,255,255,0.4), inset 0 0 12px rgba(0,255,255,0.4);
+}
+
+/* ===== LABELS ===== */
+.labels {
   position: absolute;
   top: 650px;
-  left: 29%;
+  left: 36%;
   transform: translateX(-50%);
   font-size: 28px;
   text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
-  #logoVideoFallback img {
-    width: 100%;
-    height: auto;
-  }
-  
-  .lightsweep {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-  }
 
-  .lightsweep::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -120%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(120deg,
-      rgba(255,255,255,0) 0%,
-      rgba(255,255,255,0.6) 50%,
-      rgba(255,255,255,0) 100%);
-    animation: sweep 3s infinite;
-  }
+/* ===== EFFECT ===== */
+.lightsweep {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+.lightsweep::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.6) 50%,
+    rgba(255,255,255,0) 100%);
+  animation: sweep 3s infinite;
+}
+@keyframes sweep {
+  0% { left: -120%; }
+  60%,100% { left: 130%; }
+}
 
-  @keyframes sweep {
-    0% { left: -120%; }
-    60% { left: 130%; }
-    100% { left: 130%; }
-  }
-
-/* ===== BOTTOM-RIGHT RM300 + QR ===== */
+/* ===== RM300 + QR ===== */
 .bottomBox {
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 40px;
   position: absolute;
   bottom: 50px;
   right: 50px;
 }
-
 #rm300 {
   font-size: 100px;
   font-weight: 900;
   color: #ffe066;
   text-shadow: 6px 6px 16px rgba(0,0,0,0.7);
 }
-
 #qrcode {
   width: 200px;
   border-radius: 20px;
@@ -129,142 +120,96 @@
   box-shadow: 0 8px 30px rgba(0,0,0,0.6);
 }
 
-  /* ===== FADE-IN EFFECT ===== */
-  .fade-in {
-    animation: fadeIn 1.5s ease-out forwards;
-    opacity: 0;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+/* ===== FADE IN ===== */
+.fade-in {
+  animation: fadeIn 1.5s ease-out forwards;
+  opacity: 0;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 
 <body>
 <div class="container">
 
-<!-- Transparent WebM Video -->
 <video id="logoVideo" class="fade-in" autoplay loop muted playsinline>
-    <source src="logo_ball_3.webm" type="video/webm">
+  <source src="logo_ball_3.webm" type="video/webm">
 </video>
 
-  <!-- HEADER TEXT -->
-  <div id="headerText" class="lightsweep fade-in">
-    DISKAUN BERAKHIR 31 DISEMBER 2025!
-  </div>
+<div id="headerText" class="lightsweep fade-in">
+  DISKAUN BERAKHIR HARI INI!
+</div>
 
-  <!-- COUNTDOWN -->
-  <div id="countdown" class="fade-in">00:00:00:00</div>
+<div id="countdown" class="fade-in">00:00:00:00</div>
 
-  <!-- LABELS -->
-  <div class="labels fade-in">
-    Days &nbsp;&nbsp;&nbsp; Hours &nbsp;&nbsp;&nbsp; Minutes &nbsp;&nbsp;&nbsp; Seconds
-  </div>
+<div class="labels fade-in">
+  Days &nbsp;&nbsp; Hours &nbsp;&nbsp; Minutes &nbsp;&nbsp; Seconds
+</div>
 
-  <!-- BOTTOM-RIGHT RM300 + QR -->
-  <div class="bottomBox fade-in">
-    <div id="rm300" class="lightsweep">RM300</div>
-    <img id="qrcode" src="scan_300.png">
-  </div>
+<div class="bottomBox fade-in">
+  <div id="rm300" class="lightsweep">RM300</div>
+  <img id="qrcode" src="scan_300.png">
+</div>
 
-  <!-- TICK AUDIO -->
-  <audio id="tick-audio" src="mixkit-tick-tock-clock-close-up-1059.mp3" preload="auto"></audio>
-  <audio id="silent-unlock" src="mixkit-silent.mp3" preload="auto"></audio>
+<audio id="tick-audio" src="mixkit-tick-tock-clock-close-up-1059.mp3"></audio>
 
 </div>
 
 <script>
-/* ===== COUNTDOWN SCRIPT ===== */
-const TARGET = new Date("2025-12-31T23:59:59");
-const holidays = ["2025-12-25"]; // Add more holiday dates as needed YYYY-MM-DD
-
-function isExcludedDate(d){
-  const dow = d.getDay();
-  if (dow === 0 || dow === 6) return true; // skip weekends
-  const iso = d.toISOString().slice(0,10);
-  return holidays.includes(iso);
-}
-
-function businessDayCountFromNowToTarget(){
+// ===== TARGET: TODAY AT 5:00 PM (LOCAL TIME) =====
+const TARGET = (() => {
   const now = new Date();
-  let cur = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  let end = new Date(TARGET.getFullYear(), TARGET.getMonth(), TARGET.getDate());
-  let count = 0;
-  for(let dt = new Date(cur); dt <= end; dt.setDate(dt.getDate()+1)){
-    if (!isExcludedDate(dt)) count++;
-  }
-  return count;
-}
+  return new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    17, 0, 0
+  );
+})();
 
-function pad(n){ return n<10? "0"+n : ""+n; }
+function pad(n){ return n < 10 ? "0"+n : n; }
 
 const tick = document.getElementById("tick-audio");
 tick.volume = 0.3;
 let lastSecond = -1;
-
-function playTick(sec) {
-  if(sec !== lastSecond){
-    tick.currentTime = 0;
-    tick.play().catch(()=>{});
-    lastSecond = sec;
-  }
-}
+let timer;
 
 function updateCountdown(){
   const now = new Date();
   let diff = TARGET - now;
-  if(diff < 0) diff = 0;
 
-  const businessDays = businessDayCountFromNowToTarget();
+  if (diff <= 0) {
+    document.getElementById("countdown").textContent = "00:00:00:00";
+    tick.pause();
+    clearInterval(timer);
+    document.querySelector(".bottomBox").style.display = "none";
+    return;
+  }
 
-  let totalSec = Math.floor(diff / 1000);
-  let s = totalSec % 60;
-  totalSec = (totalSec - s) / 60;
-  let m = totalSec % 60;
-  totalSec = (totalSec - m) / 60;
-  let h = totalSec % 24;
+  let total = Math.floor(diff / 1000);
+  let s = total % 60;
+  total = (total - s) / 60;
+  let m = total % 60;
+  total = (total - m) / 60;
+  let h = total % 24;
+  let d = Math.floor(total / 24);
 
   document.getElementById("countdown").textContent =
-    pad(businessDays) + ":" + pad(h) + ":" + pad(m) + ":" + pad(s);
+    pad(d)+":"+pad(h)+":"+pad(m)+":"+pad(s);
 
-  playTick(s);
-
-  // Hide RM300 + QR when countdown ends
-  const bottomBox = document.querySelector(".bottomBox");
-  if(diff <= 0){
-    bottomBox.style.display = "none";
+  if (s !== lastSecond) {
+    tick.currentTime = 0;
+    tick.play().catch(()=>{});
+    lastSecond = s;
   }
 }
 
-// Update every second
-setInterval(updateCountdown, 1000);
+timer = setInterval(updateCountdown, 1000);
 updateCountdown();
-
-// Hide fallback if browser supports WebM
-if (document.createElement('video').canPlayType('video/webm')) {
-    document.getElementById('logoVideoFallback').style.display = 'none';
-}
-
-// Unlock audio with silent sound
-const silent = document.getElementById("silent-unlock");
-silent.play().then(() => {
-    playTick(0);              // immediately play first tick
-    updateCountdown();        // show initial countdown
-    setInterval(updateCountdown, 1000); // keep countdown running
-}).catch(()=>{});
- 
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
