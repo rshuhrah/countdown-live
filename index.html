@@ -2,35 +2,37 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Live Countdown</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Countdown OBS FIXED</title>
 
 <style>
-body {
+/* ===== GLOBAL LOCK ===== */
+html, body {
   margin: 0;
+  padding: 0;
+  width: 1920px;
+  height: 1080px;
   overflow: hidden;
-  background: url("148077-abstract-glowing-cool-blue-wave-background-design.jpg") no-repeat center center / cover;
+  background: black;
+  user-select: none;
+  zoom: 1;
+}
+
+/* ===== BODY ===== */
+body {
+  background: url("148077-abstract-glowing-cool-blue-wave-background-design.jpg")
+    no-repeat center center;
+  background-size: 1920px 1080px;
   font-family: "Bauhaus 93", Arial, sans-serif;
   color: white;
 }
 
-/* ===== CONTAINER ===== */
+/* ===== MAIN CONTAINER (LOCKED) ===== */
 .container {
   position: absolute;
   width: 1920px;
   height: 1080px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* ===== AUTO-SCALE MODE ===== */
-.container.scaled {
-  width: 100vw;
-  height: 100vh;
   left: 0;
   top: 0;
-  transform: none;
 }
 
 /* ===== LOGO ===== */
@@ -76,7 +78,6 @@ body {
   left: 50%;
   transform: translateX(-50%);
   font-size: 30px;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
 /* ===== RM300 + QR ===== */
@@ -122,7 +123,7 @@ body {
 
 @keyframes sweep {
   0% { left: -120%; }
-  60%,100% { left: 130%; }
+  100% { left: 130%; }
 }
 
 /* ===== FADE IN ===== */
@@ -165,20 +166,7 @@ body {
 </div>
 
 <script>
-// ===== AUTO-SCALE LOGIC =====
-(function() {
-  const params = new URLSearchParams(window.location.search);
-  const isPreview = params.get("preview") === "true";
-  const container = document.querySelector(".container");
-
-  if (isPreview) {
-    container.classList.add("scaled"); // auto-scale in browser
-  } else {
-    container.classList.remove("scaled"); // fixed 1920x1080 for OBS
-  }
-})();
-
-// ===== COUNTDOWN LOGIC =====
+/* ===== COUNTDOWN ===== */
 const TARGET = (() => {
   const now = new Date();
   return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0);
@@ -189,7 +177,6 @@ function pad(n){ return n < 10 ? "0"+n : n; }
 const tick = document.getElementById("tick-audio");
 tick.volume = 0.3;
 let lastSecond = -1;
-let timer;
 
 function updateCountdown(){
   const now = new Date();
@@ -197,8 +184,6 @@ function updateCountdown(){
 
   if (diff <= 0) {
     document.getElementById("countdown").textContent = "00:00:00:00";
-    tick.pause();
-    clearInterval(timer);
     document.querySelector(".bottomBox").style.display = "none";
     return;
   }
@@ -221,7 +206,7 @@ function updateCountdown(){
   }
 }
 
-timer = setInterval(updateCountdown, 1000);
+setInterval(updateCountdown, 1000);
 updateCountdown();
 </script>
 
