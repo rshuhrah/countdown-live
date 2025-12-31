@@ -1,86 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Live Countdown</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
 body {
   margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
+  background: #000;
+  overflow: hidden;
+}
+
+/* FIXED CANVAS */
+.container {
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   font-family: "Bauhaus 93", Arial, sans-serif;
   color: white;
-  overflow: hidden;
   background: url("148077-abstract-glowing-cool-blue-wave-background-design.jpg")
-          no-repeat center center / cover;
+              no-repeat center center / cover;
 }
 
-.container {
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  position: relative;
-}
-
-/* ===== LOGO ===== */
+/* LOGO */
 #logoVideo {
   position: absolute;
-  top: 5vh;
+  top: 40px;
   left: 50%;
   transform: translateX(-50%);
-  width: 35vw;
-  max-width: 1200px;
-  z-index: 100;
-  background: transparent;
+  width: 900px;
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
 #headerText {
   position: absolute;
-  top: 40vh;
+  top: 360px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 3.5vw;
+  font-size: 72px;
   font-weight: 900;
   white-space: nowrap;
   text-shadow: 4px 4px 12px rgba(0,0,0,0.7);
 }
 
-/* ===== COUNTDOWN ===== */
+/* COUNTDOWN */
 #countdown {
   position: absolute;
-  top: 50vh;
+  top: 470px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 4.5vw;
+  font-size: 110px;
   padding: 20px 40px;
   letter-spacing: 6px;
   color: #00ffdd;
   background: rgba(0,0,0,0.35);
   border-radius: 20px;
   border: 2px solid rgba(0,255,255,0.5);
-  box-shadow: 0 0 12px rgba(0,255,255,0.4), inset 0 0 12px rgba(0,255,255,0.4);
 }
 
-/* ===== LABELS ===== */
+/* LABELS */
 .labels {
   position: absolute;
-  top: 62vh;
+  top: 620px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 1.6vw;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  font-size: 30px;
 }
 
-/* ===== EFFECT ===== */
+/* RM300 + QR */
+.bottomBox {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+#rm300 {
+  font-size: 120px;
+  font-weight: 900;
+  color: #ffe066;
+}
+
+#qrcode {
+  width: 200px;
+  border-radius: 20px;
+}
+
+/* EFFECTS */
 .lightsweep {
   position: relative;
-  display: inline-block;
   overflow: hidden;
 }
+
 .lightsweep::after {
   content: "";
   position: absolute;
@@ -94,128 +103,19 @@ body {
     rgba(255,255,255,0) 100%);
   animation: sweep 3s infinite;
 }
+
 @keyframes sweep {
   0% { left: -120%; }
   60%,100% { left: 130%; }
 }
 
-/* ===== RM300 + QR ===== */
-.bottomBox {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  position: absolute;
-  bottom: 50px;
-  right: 50px;
-}
-#rm300 {
-  font-size: 5vw;
-  font-weight: 900;
-  color: #ffe066;
-  text-shadow: 6px 6px 16px rgba(0,0,0,0.7);
-}
-#qrcode {
-  width: 10vw;
-  max-width: 200px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.1);
-  padding: 10px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-}
-
-/* ===== FADE IN ===== */
+/* FADE IN */
 .fade-in {
   animation: fadeIn 1.5s ease-out forwards;
   opacity: 0;
 }
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
-</style>
-</head>
-
-<body>
-<div class="container">
-
-<video id="logoVideo" class="fade-in" autoplay loop muted playsinline>
-  <source src="logo_ball_3.webm" type="video/webm">
-</video>
-
-<div id="headerText" class="lightsweep fade-in">
-  DISKAUN BERAKHIR HARI INI!
-</div>
-
-<div id="countdown" class="fade-in">00:00:00:00</div>
-
-<div class="labels fade-in">
-  Days &nbsp;&nbsp; Hours &nbsp;&nbsp; Minutes &nbsp;&nbsp; Seconds
-</div>
-
-<div class="bottomBox fade-in">
-  <div id="rm300" class="lightsweep">RM300</div>
-  <img id="qrcode" src="scan_300.png">
-</div>
-
-<audio id="tick-audio" src="mixkit-tick-tock-clock-close-up-1059.mp3"></audio>
-
-</div>
-
-<script>
-// ===== TARGET: TODAY AT 5:00 PM (LOCAL TIME) =====
-const TARGET = (() => {
-  const now = new Date();
-  return new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-    17, 0, 0
-  );
-})();
-
-function pad(n){ return n < 10 ? "0"+n : n; }
-
-const tick = document.getElementById("tick-audio");
-tick.volume = 0.3;
-let lastSecond = -1;
-let timer;
-
-function updateCountdown(){
-  const now = new Date();
-  let diff = TARGET - now;
-
-  if (diff <= 0) {
-    document.getElementById("countdown").textContent = "00:00:00:00";
-    tick.pause();
-    clearInterval(timer);
-    document.querySelector(".bottomBox").style.display = "none";
-    return;
-  }
-
-  let total = Math.floor(diff / 1000);
-  let s = total % 60;
-  total = (total - s) / 60;
-  let m = total % 60;
-  total = (total - m) / 60;
-  let h = total % 24;
-  let d = Math.floor(total / 24);
-
-  document.getElementById("countdown").textContent =
-    pad(d)+":"+pad(h)+":"+pad(m)+":"+pad(s);
-
-  if (s !== lastSecond) {
-    tick.currentTime = 0;
-    tick.play().catch(()=>{});
-    lastSecond = s;
-  }
-}
-
-timer = setInterval(updateCountdown, 1000);
-updateCountdown();
-</script>
-
-</body>
-</html>
-
-
-
