@@ -1,10 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Live Countdown</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
 body {
   margin: 0;
-  background: #000;
   overflow: hidden;
+  background: url("148077-abstract-glowing-cool-blue-wave-background-design.jpg") no-repeat center center / cover;
+  font-family: "Bauhaus 93", Arial, sans-serif;
+  color: white;
 }
 
-/* FIXED CANVAS */
+/* ===== CONTAINER ===== */
 .container {
   position: absolute;
   width: 1920px;
@@ -12,13 +22,18 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-family: "Bauhaus 93", Arial, sans-serif;
-  color: white;
-  background: url("148077-abstract-glowing-cool-blue-wave-background-design.jpg")
-              no-repeat center center / cover;
 }
 
-/* LOGO */
+/* ===== AUTO-SCALE MODE ===== */
+.container.scaled {
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  transform: none;
+}
+
+/* ===== LOGO ===== */
 #logoVideo {
   position: absolute;
   top: 40px;
@@ -27,7 +42,7 @@ body {
   width: 900px;
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 #headerText {
   position: absolute;
   top: 360px;
@@ -39,7 +54,7 @@ body {
   text-shadow: 4px 4px 12px rgba(0,0,0,0.7);
 }
 
-/* COUNTDOWN */
+/* ===== COUNTDOWN ===== */
 #countdown {
   position: absolute;
   top: 470px;
@@ -54,16 +69,17 @@ body {
   border: 2px solid rgba(0,255,255,0.5);
 }
 
-/* LABELS */
+/* ===== LABELS ===== */
 .labels {
   position: absolute;
   top: 620px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 30px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
-/* RM300 + QR */
+/* ===== RM300 + QR ===== */
 .bottomBox {
   position: absolute;
   bottom: 40px;
@@ -84,7 +100,7 @@ body {
   border-radius: 20px;
 }
 
-/* EFFECTS */
+/* ===== EFFECT ===== */
 .lightsweep {
   position: relative;
   overflow: hidden;
@@ -109,7 +125,7 @@ body {
   60%,100% { left: 130%; }
 }
 
-/* FADE IN */
+/* ===== FADE IN ===== */
 .fade-in {
   animation: fadeIn 1.5s ease-out forwards;
   opacity: 0;
@@ -119,3 +135,95 @@ body {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<video id="logoVideo" class="fade-in" autoplay loop muted playsinline>
+  <source src="logo_ball_3.webm" type="video/webm">
+</video>
+
+<div id="headerText" class="lightsweep fade-in">
+  DISKAUN BERAKHIR HARI INI!
+</div>
+
+<div id="countdown" class="fade-in">00:00:00:00</div>
+
+<div class="labels fade-in">
+  Days &nbsp;&nbsp; Hours &nbsp;&nbsp; Minutes &nbsp;&nbsp; Seconds
+</div>
+
+<div class="bottomBox fade-in">
+  <div id="rm300" class="lightsweep">RM300</div>
+  <img id="qrcode" src="scan_300.png">
+</div>
+
+<audio id="tick-audio" src="mixkit-tick-tock-clock-close-up-1059.mp3"></audio>
+
+</div>
+
+<script>
+// ===== AUTO-SCALE LOGIC =====
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const isPreview = params.get("preview") === "true";
+  const container = document.querySelector(".container");
+
+  if (isPreview) {
+    container.classList.add("scaled"); // auto-scale in browser
+  } else {
+    container.classList.remove("scaled"); // fixed 1920x1080 for OBS
+  }
+})();
+
+// ===== COUNTDOWN LOGIC =====
+const TARGET = (() => {
+  const now = new Date();
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0);
+})();
+
+function pad(n){ return n < 10 ? "0"+n : n; }
+
+const tick = document.getElementById("tick-audio");
+tick.volume = 0.3;
+let lastSecond = -1;
+let timer;
+
+function updateCountdown(){
+  const now = new Date();
+  let diff = TARGET - now;
+
+  if (diff <= 0) {
+    document.getElementById("countdown").textContent = "00:00:00:00";
+    tick.pause();
+    clearInterval(timer);
+    document.querySelector(".bottomBox").style.display = "none";
+    return;
+  }
+
+  let total = Math.floor(diff / 1000);
+  let s = total % 60;
+  total = (total - s) / 60;
+  let m = total % 60;
+  total = (total - m) / 60;
+  let h = total % 24;
+  let d = Math.floor(total / 24);
+
+  document.getElementById("countdown").textContent =
+    pad(d)+":"+pad(h)+":"+pad(m)+":"+pad(s);
+
+  if (s !== lastSecond) {
+    tick.currentTime = 0;
+    tick.play().catch(()=>{});
+    lastSecond = s;
+  }
+}
+
+timer = setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
