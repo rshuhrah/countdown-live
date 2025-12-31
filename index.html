@@ -28,10 +28,11 @@ body {
 /* ===== LOGO ===== */
 #logoVideo {
   position: absolute;
-  top: -150px;
-  left: 17%;
+  top: 5vh;
+  left: 50%;
   transform: translateX(-50%);
-  width: 1200px;
+  width: 35vw;
+  max-width: 1200px;
   z-index: 100;
   background: transparent;
 }
@@ -39,10 +40,10 @@ body {
 /* ===== HEADER ===== */
 #headerText {
   position: absolute;
-  top: 450px;
-  left: 29%;
+  top: 40vh;
+  left: 50%;
   transform: translateX(-50%);
-  font-size: 65px;
+  font-size: 3.5vw;
   font-weight: 900;
   white-space: nowrap;
   text-shadow: 4px 4px 12px rgba(0,0,0,0.7);
@@ -51,10 +52,11 @@ body {
 /* ===== COUNTDOWN ===== */
 #countdown {
   position: absolute;
-  top: 550px;
-  left: 35%;
+  top: 50vh;
+  left: 50%;
   transform: translateX(-50%);
-  font-size: 80px;
+  font-size: 4.5vw;
+  padding: 20px 40px;
   letter-spacing: 6px;
   color: #00ffdd;
   background: rgba(0,0,0,0.35);
@@ -66,10 +68,10 @@ body {
 /* ===== LABELS ===== */
 .labels {
   position: absolute;
-  top: 650px;
-  left: 36%;
+  top: 62vh;
+  left: 50%;
   transform: translateX(-50%);
-  font-size: 28px;
+  font-size: 1.6vw;
   text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
@@ -107,13 +109,14 @@ body {
   right: 50px;
 }
 #rm300 {
-  font-size: 100px;
+  font-size: 5vw;
   font-weight: 900;
   color: #ffe066;
   text-shadow: 6px 6px 16px rgba(0,0,0,0.7);
 }
 #qrcode {
-  width: 200px;
+  width: 10vw;
+  max-width: 200px;
   border-radius: 20px;
   background: rgba(255,255,255,0.1);
   padding: 10px;
@@ -213,5 +216,6 @@ updateCountdown();
 
 </body>
 </html>
+
 
 
